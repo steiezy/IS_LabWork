@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  mail:
+    host: localhost
+    port: 3025
+    username: spring
+    password: password

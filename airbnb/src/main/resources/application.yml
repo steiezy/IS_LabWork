@@ -1,0 +1,39 @@
+
+spring:
+#  profiles:
+#    active: test
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  datasource:
+    username: sa
+    password: 123456
+    url: jdbc:sqlserver://localhost;databaseName=airbnb;encrypt=true;trustServerCertificate=true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+  email:
+    host: lilltyay@outlook.com
+    expireTime: 3600000
+  mail:
+    host: localhost
+    port: 25
+
+server:
+  port: 8090
+
+encryption:
+  salt:
+    rounds: 10
+
+jwt:
+  algorithm:
+    key: 1234567890
+  issuer: airbnb
+  expireInMinutes: 6000
+
+app:
+  frontend:
+    url: http://localhost:8080/
