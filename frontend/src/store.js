@@ -5,11 +5,10 @@ const store = createStore({
     state () {
         return {
             server: 'http://192.168.31.158:8090',
-            auth: 'api/v1/auth'
+            auth: 'api/v1/auth',
+            fakeAuth:'open/v1/auth',
         }
     }
-    
-
 })
 
 export default store;

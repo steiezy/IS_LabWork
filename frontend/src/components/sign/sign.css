@@ -1,0 +1,56 @@
+button {
+    width: 200px;
+    height: 40px;
+    display: block;
+    margin: 30px auto;
+    border: 1px solid skyblue;
+    border-radius: 10px;
+    background-color: skyblue;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.center-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+    width: 130px;
+    height: 130px;
+    margin: 20px auto;
+}
+
+form input {
+    width: 300px;
+    height: 40px;
+    display: block;
+    margin: 20px auto;
+    border: 1px solid skyblue;
+    border-radius: 10px;
+    text-align: center;
+}
+
+input::placeholder {
+    text-align: center;
+}
+
+form button {
+    width: 200px;
+    height: 40px;
+    display: block;
+    margin: 30px auto;
+    border: 1px solid skyblue;
+    border-radius: 10px;
+    background-color: skyblue;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sign-form {
+    margin: 40px auto;
+}
