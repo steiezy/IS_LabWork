@@ -1,0 +1,144 @@
+.logo {
+    width: 60px;
+    height: 60px;
+    margin: 3px;
+  }
+  
+  .city-selector {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    
+    margin-right: 20px;
+  }
+  
+  .user-center {
+    font-size: 18px;
+    font-weight: bold;
+    color: #6d1616;
+  }
+  
+  .filters {
+    display: grid;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 0px;
+    background-color: bisque;
+  }
+  .filter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: bisque;
+    width: 100%;
+    
+    border-bottom: #be5252 1px solid;
+  }
+  .layout {
+    display: grid;
+  }
+  .header {
+    display: flex;
+    background-color: rgb(214, 189, 156);
+    width: 100%;
+    justify-content: space-between;
+  }
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-right: 20px;
+  }
+  .selections {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
+  .position-botton {
+    margin-left: 5px;
+    margin-right: 5px;
+  
+    size: 8px;
+  }
+  .active {
+    width: auto;
+    margin: 10px;
+    white-space: nowrap;
+    color: rgb(15, 2, 2);
+    size: 8px;
+    text-align: center;
+    text-decoration: underline;
+  }
+  .selectRent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .label {
+    white-space: nowrap;
+  
+    margin-right: 10px;
+  }
+  .input {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 20px;
+    border: 1px solid skyblue;
+    border-radius: 3px;
+    text-align: center;
+  }
+  .textbotton{
+    width: auto;
+    margin: 10px;
+    white-space: nowrap;
+    color: rgb(214, 136, 136);
+    size: 8px;
+    text-align: center;
+  }
+  .pagination{
+    width: 100%; /* 自适应宽度 */
+    display: flex; /* 使用 flex 布局 */
+    background-color: #c09292;
+    justify-content: center; 
+  
+  }
+  .order-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #fda9a9;
+  
+  
+  }
+  .listing{
+    display: grid;
+    align-items: center;
+    
+    border-bottom: #be5252 1px solid;
+  }
+  .orders{
+    flex: 0 0 50%;
+    max-width: 50%;
+    text-align: center;
+  }
+  .photo{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    align-items: center;
+  }
