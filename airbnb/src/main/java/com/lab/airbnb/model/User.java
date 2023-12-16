@@ -22,33 +22,45 @@ public class User {
     @Column(name = "phone_num")
     private String phoneNum;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<House> houses = new ArrayList<>();
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("createdTimestamp DESC")
     private List<VerificationToken> verificationTokens = new ArrayList<>();
-
+    @JsonIgnore
     @Column(name = "email_verified", nullable = false)
     private Boolean emailVerified = false;
 
+    //0:admin 1:landlord 2:user
+    @Column(name = "role", length = 10)
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    @JsonIgnore
     public Boolean getEmailVerified() {
         return emailVerified;
     }
-
+    @JsonIgnore
     public void setEmailVerified(Boolean emailVerified) {
         this.emailVerified = emailVerified;
     }
-
+    @JsonIgnore
     public List<VerificationToken> getVerificationTokens() {
         return verificationTokens;
     }
-
+    @JsonIgnore
     public void setVerificationTokens(List<VerificationToken> verificationTokens) {
         this.verificationTokens = verificationTokens;
     }

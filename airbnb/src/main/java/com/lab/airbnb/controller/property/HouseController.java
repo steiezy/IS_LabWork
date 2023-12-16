@@ -1,10 +1,8 @@
-package com.lab.airbnb.controiler.property;
+package com.lab.airbnb.controller.property;
 
 import com.lab.airbnb.domain.dto.HouseDTO;
 import com.lab.airbnb.exception.HouseNotExistException;
-import com.lab.airbnb.exception.UserAlreadyExistException;
 import com.lab.airbnb.model.House;
-import com.lab.airbnb.model.Photo;
 import com.lab.airbnb.model.User;
 import com.lab.airbnb.service.HouseService;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/house")
@@ -55,11 +52,11 @@ public class HouseController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        House house = houseService.findByHouseId(houseDTO.getHouseId());
-        if (house == null) {
+        Optional<House> ophouse = houseService.findByHouseId(houseDTO.getHouseId());
+        if (ophouse.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new HouseNotExistException().getMessage());
         }
-
+        House house = ophouse.get();
         if (houseDTO.getTitle() != null) house.setTitle(houseDTO.getTitle());
         if (houseDTO.getDescription() != null) house.setDescription(houseDTO.getDescription());
         if (houseDTO.getLocation() != null) house.setLocation(houseDTO.getLocation());

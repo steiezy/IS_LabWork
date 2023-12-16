@@ -1,5 +1,6 @@
 package com.lab.airbnb.service;
 
+import com.lab.airbnb.domain.PasswordResetBody;
 import com.lab.airbnb.domain.dto.UserDTO;
 import com.lab.airbnb.exception.*;
 import com.lab.airbnb.model.User;
@@ -45,6 +46,9 @@ public class UserService {
         if (userDAO.findByPhoneNum(userDTO.getPhoneNum()).isPresent()) {
             throw new UserPhoneNumAlreadyExistException();
         }
+        if (userDAO.findByEmail(userDTO.getEmail()).isPresent()) {
+            throw new UserEmailAlreadyExistException();
+        }
         String uuid = UUID.randomUUID().toString();
         uuid = uuid.replace("-", "");
         User user = new User();
@@ -53,6 +57,7 @@ public class UserService {
         user.setPassword(encryptionService.encryptPassword(userDTO.getPassword()));
         user.setPhoneNum(userDTO.getPhoneNum());
         user.setEmail(userDTO.getEmail());
+        user.setRole("2");
         userDAO.save(user);
         VerificationToken verificationToken = createVerificationToken(user);
         emailService.sendVerificationEmail(verificationToken);
@@ -69,7 +74,7 @@ public class UserService {
                     return jwtService.generateToken(user.getUserId());
                 } else {
                     List<VerificationToken> verificationTokens = user.getVerificationTokens();
-                    boolean resend = verificationTokens.isEmpty()||
+                    boolean resend = verificationTokens.isEmpty() ||
                             verificationTokens.get(0).getCreatedTimestamp().before(new Timestamp(System.currentTimeMillis() - expireTime));
                     if (resend) {
                         VerificationToken verificationToken = createVerificationToken(user);
@@ -95,7 +100,7 @@ public class UserService {
     }
 
     @Transactional
-    public boolean verifyUser(String token){
+    public boolean verifyUser(String token) {
         Optional<VerificationToken> opVerificationToken = verificationTokenDAO.findByTokenBody(token);
         if (opVerificationToken.isPresent()) {
             VerificationToken verificationToken = opVerificationToken.get();
@@ -113,4 +118,35 @@ public class UserService {
         }
         return false;
     }
+
+    public void forgotPassword(String email) throws EmailFailureException, EmailNotFoundException {
+        Optional<User> opUser = userDAO.findByEmail(email);
+        if (opUser.isPresent()) {
+            User user = opUser.get();
+            String token = jwtService.generatePasswordResetToken(user);
+            emailService.sendResetPasswordEmail(user, token);
+        } else {
+            throw new EmailNotFoundException();
+        }
+    }
+
+
+    public void resetPassword(PasswordResetBody body) throws PasswordResetTokenInvalidException {
+        String email = jwtService.getResetPasswordEmail(body.getToken());
+        Optional<User> opUser = userDAO.findByEmail(email);
+        if (opUser.isPresent()) {
+            User user = opUser.get();
+            user.setPassword(encryptionService.encryptPassword(body.getPassword()));
+            userDAO.save(user);
+
+        } else {
+            throw new PasswordResetTokenInvalidException();
+        }
+    }
+
+    public User findByUserId(String userId) {
+        Optional<User> opUser = userDAO.findByUserId(userId);
+        return opUser.orElse(null);
+    }
+
 }
