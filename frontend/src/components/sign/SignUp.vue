@@ -15,6 +15,7 @@
         <input type="password" placeholder="Password" v-model="register.password">
         <div class="error" v-for="(error, index) in errors.password" :key="index">{{ error }}</div>
         <button @click="singUp">Sign Up</button>
+        <router-link to="/sign-in">Login</router-link>
     </form>
 </template>
         
@@ -50,7 +51,7 @@ export default {
                     `${this.$store.state.server}/${this.$store.state.fakeAuth}/register`, this.register)
                 let data = result.data;
                 localStorage.setItem('token', data);
-                this.$router.push('/home');
+                this.$router.push('/user-center');
             } catch (error) {
                 if (error.response && error.response.data) {
                     let errors = Array.isArray(error.response.data) ? error.response.data : [error.response.data];
@@ -74,7 +75,7 @@ export default {
     },
     mounted() {
         if (localStorage.getItem('token')) {
-            this.$router.push('/home');
+            this.$router.push('/user-center');
         }
     }
 

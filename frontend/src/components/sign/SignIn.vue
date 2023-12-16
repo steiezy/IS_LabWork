@@ -8,6 +8,7 @@
         <input type="password" placeholder="Password" v-model="login.password">
         <div class="error" v-for="(error, index) in errors.password" :key="index">{{ error }}</div>
         <button @click="Login">login</button>
+        <router-link to="/sign-up">Sign Up</router-link>
     </form>
 </template>
         
@@ -40,7 +41,7 @@ export default {
                     console.log(result);
                 let data = result.data;
                 localStorage.setItem('token', data.jwt);
-                this.$router.push('/home');
+                this.$router.push('/user-center');
             } catch (error) {
                 console.log(error);
                 if (error.response && error.response.data) {
@@ -65,7 +66,7 @@ export default {
     },
     mounted() {
         if (localStorage.getItem('token')) {
-            this.$router.push('/home');
+            this.$router.push('/user-center');
         }
     }
 
