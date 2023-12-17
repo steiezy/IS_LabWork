@@ -1,12 +1,11 @@
-package com.lab.airbnb.controiler.auth;
+package com.lab.airbnb.controller.auth;
 
 import com.lab.airbnb.domain.LoginResponse;
+import com.lab.airbnb.domain.PasswordResetBody;
 import com.lab.airbnb.domain.dto.UserDTO;
 import com.lab.airbnb.domain.vo.LoginVo;
 import com.lab.airbnb.domain.vo.RegistrationVo;
-import com.lab.airbnb.exception.EmailFailureException;
-import com.lab.airbnb.exception.UserAlreadyExistException;
-import com.lab.airbnb.exception.UserNotVerifiedException;
+import com.lab.airbnb.exception.*;
 import com.lab.airbnb.model.User;
 import com.lab.airbnb.service.UserService;
 import jakarta.validation.Valid;
@@ -27,7 +26,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody RegistrationVo registrationVo)  {
+    public ResponseEntity<String> registerUser(@Valid @RequestBody RegistrationVo registrationVo) {
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(registrationVo.getUsername());
         userDTO.setPassword(registrationVo.getPassword());
@@ -37,14 +36,14 @@ public class AuthenticationController {
             userService.registerUser(userDTO);
             return ResponseEntity.ok().build();
         } catch (UserAlreadyExistException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getKey()+": "+e.getMessage());
         } catch (EmailFailureException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginVo loginVo)  {
+    public ResponseEntity loginUser(@Valid @RequestBody LoginVo loginVo) {
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(loginVo.getUsername());
         userDTO.setPassword(loginVo.getPassword());
@@ -56,7 +55,7 @@ public class AuthenticationController {
             loginResponse.setSuccess(false);
             //decoupling
             String reason = "USER_NOT_VERIFIED";
-            if (e.isNewEmailSent()){
+            if (e.isNewEmailSent()) {
                 reason += "_EMAIL_RESENT";
             }
             loginResponse.setFailureReason(reason);
@@ -70,19 +69,38 @@ public class AuthenticationController {
             loginResponse.setSuccess(true);
             return ResponseEntity.ok(loginResponse);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("general: username or password is incorrect");
     }
 
     @PostMapping("/verify")
     public ResponseEntity verifyUser(@RequestParam("token") String token) {
         if (userService.verifyUser(token)) {
             return ResponseEntity.ok().build();
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
 
     }
+
+    @PostMapping("/forgot")
+    public ResponseEntity forgotPassword(@RequestParam("email") String email) {
+        try {
+            userService.forgotPassword(email);
+            return ResponseEntity.ok().build();
+        } catch (EmailFailureException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (EmailNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @PostMapping("/reset")
+    public ResponseEntity resetPassword(@Valid @RequestBody PasswordResetBody body) throws PasswordResetTokenInvalidException {
+        userService.resetPassword(body);
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping("/me")
     public User getLoginUser(@AuthenticationPrincipal User user) {

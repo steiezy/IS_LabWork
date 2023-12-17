@@ -1,6 +1,8 @@
 package com.lab.airbnb.service;
 
+import com.lab.airbnb.domain.dto.UserDTO;
 import com.lab.airbnb.exception.EmailFailureException;
+import com.lab.airbnb.model.User;
 import com.lab.airbnb.model.VerificationToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -37,5 +39,18 @@ public class EmailService {
                 throw new EmailFailureException();
             }
 
+    }
+
+    public void sendResetPasswordEmail(User user, String token) throws EmailFailureException {
+            SimpleMailMessage message = createMessage();
+            message.setTo(user.getEmail());
+            message.setSubject("Reset Password Email");
+            message.setText("Please click the link below to reset your password:\n" +
+                    frontendUrl + "/api/v1/auth/reset?token=" + token);
+            try {
+                javaMailSender.send(message);
+            }catch (MailException e){
+                throw new EmailFailureException();
+            }
     }
 }

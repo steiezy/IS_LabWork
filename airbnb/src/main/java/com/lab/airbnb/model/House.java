@@ -28,7 +28,7 @@ public class House {
 
     @Column(name = "owner", length = 32)
     private String owner;
-    //0:未出租 1:已出租
+    //0:未出租 1:待出租 2:已出租
     @Column(name = "status", length = 10)
     private String status;
 

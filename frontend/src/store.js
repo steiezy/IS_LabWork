@@ -8,6 +8,7 @@ const store = createStore({
             auth: 'api/v1/auth',
             fakeAuth:'open/v1/auth',
             lease: 'api/v1/lease',
+            user: 'api/v1/user',
         }
     }
 })

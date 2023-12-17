@@ -31,24 +31,40 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse
-            response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String tokenHeader = request.getHeader("Authorization");
-        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
-            String token = tokenHeader.substring(7);
-            try {
-                String userId = JWTService.getUserId(token);
-                Optional<User> opUser = userDAO.findById(userId);
-                if(opUser.isPresent()) {
-                    User user = opUser.get();
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            } catch (JWTDecodeException e) {
-
-            }
+        UsernamePasswordAuthenticationToken token = checkToken(tokenHeader);
+        if (token != null) {
+            token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         }
         filterChain.doFilter(request, response);
+    }
+
+    /**
+     * Method to authenticate a token and return the Authentication object
+     * written to the spring security context.
+     *
+     * @param token The token to test.
+     * @return The Authentication object if set.
+     */
+    private UsernamePasswordAuthenticationToken checkToken(String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            try {
+                String userId = JWTService.getUserId(token);
+                Optional<User> opUser = userDAO.findByUserId(userId);
+                if (opUser.isPresent()) {
+                    User user = opUser.get();
+                    if (user.getEmailVerified()) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList());
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                        return authentication;
+                    }
+                }
+            } catch (JWTDecodeException ex) {
+            }
+        }
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return null;
     }
 }

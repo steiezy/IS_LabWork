@@ -2,6 +2,7 @@ package com.lab.airbnb.domain.dto;
 
 import com.lab.airbnb.model.Photo;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Accessors(chain = true)
 public class HouseDTO implements Serializable {
     private String houseId;
@@ -24,7 +26,8 @@ public class HouseDTO implements Serializable {
     private String description;
     private String location;
     private String owner;
-    private String status;
+    @Builder.Default
+    private String status = "0";
     private Double longitude;
     private Double latitude;
     private String proportion;

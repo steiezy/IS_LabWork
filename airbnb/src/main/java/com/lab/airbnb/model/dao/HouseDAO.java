@@ -4,12 +4,13 @@ import com.lab.airbnb.model.House;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HouseDAO extends ListCrudRepository<House, String> {
 
 
     List<House> findByUser_UserId(String userId);
 
-    House findByHouseId(String houseId);
+    Optional<House> findByHouseId(String houseId);
 
 }

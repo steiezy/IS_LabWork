@@ -6,9 +6,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import org.springframework.security.web.util.matcher.*;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,12 +38,14 @@ public class WebSecurityConfig {
             return config;
         }));
 
-        http.addFilterBefore(jwtRequestFilter, AuthorizationFilter.class);
-        http.authorizeHttpRequests(auth -> auth.requestMatchers(requestMatchers
-                        -> requestMatchers.getRequestURI().startsWith("/api/v1/lease")).permitAll()
-                .requestMatchers("/api/v1/auth/**","/open/**").permitAll()
-                .anyRequest().authenticated());
 
+        http.addFilterBefore(jwtRequestFilter, AuthorizationFilter.class);
+        http.authorizeHttpRequests(authorize -> authorize
+                // Specific exclusions or rules.
+                .requestMatchers("/api/v1/auth/**",
+                "/api/v1/lease/**",
+                "/open/**").permitAll()
+                .anyRequest().authenticated());
         return http.build();
     }
 

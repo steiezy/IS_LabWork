@@ -48,7 +48,7 @@ public class HouseService {
         return Optional.ofNullable(houseDAO.save(house));
     }
 
-    public House findByHouseId(String houseId) {
+    public Optional<House> findByHouseId(String houseId) {
         return houseDAO.findByHouseId(houseId);
     }
 }

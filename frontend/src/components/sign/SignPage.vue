@@ -18,7 +18,7 @@ export default {
     },
     mounted() {
         if (localStorage.getItem('token')) {
-            this.$router.push('/home');
+            this.$router.push('/user-center');
         }
     }
 };

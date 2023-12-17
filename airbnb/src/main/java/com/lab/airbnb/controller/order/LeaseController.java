@@ -1,4 +1,4 @@
-package com.lab.airbnb.controiler.order;
+package com.lab.airbnb.controller.order;
 
 import com.lab.airbnb.domain.QueryInfo;
 import com.lab.airbnb.model.Order;

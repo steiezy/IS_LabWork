@@ -1,4 +1,4 @@
-import UserHome from './components/UserHome.vue';
+import UserCenter from './components/userCenter/UserCenter.vue';
 import SignUp from './components/sign/SignUp.vue';
 import SignIn from './components/sign/SignIn.vue';
 import SignPage from './components/sign/SignPage.vue';
@@ -11,9 +11,9 @@ import {
 
 const routes = [
     {
-        name: 'UserHome',
-        component: UserHome,
-        path: '/home'
+        name: 'UserCenter',
+        component: UserCenter,
+        path: '/user-center'
     },
     {
         name: 'ListPage',

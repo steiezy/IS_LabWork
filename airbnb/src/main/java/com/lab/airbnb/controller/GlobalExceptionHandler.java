@@ -1,6 +1,5 @@
-package com.lab.airbnb.controiler;
+package com.lab.airbnb.controller;
 
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,7 +16,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult()
                 .getAllErrors().stream()
-                .map(objectError -> ((FieldError) objectError).getField() + "： " + objectError.getDefaultMessage())
+                .map(objectError -> ((FieldError) objectError).getField() + ": " + objectError.getDefaultMessage())
                 .collect(Collectors.toList());
 
 
