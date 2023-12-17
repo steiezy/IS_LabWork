@@ -149,4 +149,7 @@ public class UserService {
         return opUser.orElse(null);
     }
 
+    public User save(User curUser) {
+        return userDAO.save(curUser);
+    }
 }

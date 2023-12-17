@@ -55,11 +55,11 @@ public class Order {
         this.releaseTime = releaseTime;
     }
 
-    public House getHouseDAO() {
+    public House getHouse() {
         return house;
     }
 
-    public void setHouseDAO(House house) {
+    public void setHouse(House house) {
         this.house = house;
     }
 
