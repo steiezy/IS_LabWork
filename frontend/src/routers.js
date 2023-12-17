@@ -2,6 +2,7 @@ import UserHome from './components/UserHome.vue';
 import SignUp from './components/sign/SignUp.vue';
 import SignIn from './components/sign/SignIn.vue';
 import SignPage from './components/sign/SignPage.vue';
+import ListPage from './components/Homepage/homePage.vue';
 import {
     createRouter,
     createWebHistory
@@ -13,6 +14,11 @@ const routes = [
         name: 'UserHome',
         component: UserHome,
         path: '/home'
+    },
+    {
+        name: 'ListPage',
+        component: ListPage,
+        path: '/listpage'
     },
     {
         name: 'SignPage',

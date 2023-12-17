@@ -48,7 +48,7 @@
             v-model:page-size="pageSize"
             :page-sizes="[10, 20, 30, 40]"
             :disabled="disabled"
-            :background="True"
+            :background="background"
             layout="sizes, prev, pager, next"
             :total="1000"
             @size-change="handleSizeChange"

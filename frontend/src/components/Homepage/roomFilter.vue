@@ -9,7 +9,7 @@
               class="textbotton"
               :class="{ active: activeroom === 'allroom' }"
               @click="roomActive('allroom')"
-              >全部</
+              >全部</text
             >
             <el-button
               type="text"
