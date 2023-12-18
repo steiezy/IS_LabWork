@@ -1,46 +1,34 @@
 <template>
-    <resetPassword v-if="showModal" @close="closeModal"></resetPassword>
-    <div class="container">
-        <div class="sidebar">
-            <!-- Add your sidebar content here -->
-            <h2>Sidebar</h2>
-            <p @click="addHouse">add your first house</p>
-            <p @click="resetPassword">reset password</p>
-            <p @click="logout">logout</p>
-        </div>
-
-
-        <div class="user-info">
-            <h1>User Center</h1>
-            <table class="info-table">
-                <tr>
-                    <th>Username</th>
-                    <td>{{ userInfo.username }}</td>
-                </tr>
-                <tr>
-                    <th>Phone Number</th>
-                    <td>{{ userInfo.phoneNum }}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ userInfo.email }}</td>
-                </tr>
-                <tr>
-                    <th>Role</th>
-                    <td>{{ userInfo.role }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+<resetPassword v-if="showModal" @close="closeModal"></resetPassword>
+  <div class="common-layout">
+    <el-container>
+      <el-header class="header">
+        <img class="logo" src="../../assets/logo.png">
+        <el-icon><House /></el-icon>
+      </el-header>
+      
+       
+      <el-container style="display: flex; height: 100vh;">
+        <userBar></userBar>
+        <router-view></router-view>
+   
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import resetPassword from './resetPassword.vue';
+
+import userBar from './userBar.vue';
+// import userInfo from './userInfo.vue';
 export default {
     name: 'UserHome',
     components: {
-        resetPassword
+
+        userBar,
+
+
+
     },
     data() {
         return {
@@ -70,33 +58,6 @@ export default {
         }
     },
 
-    async mounted() {
-        if (!localStorage.getItem('token')) {
-            this.$router.push('/sign');
-        } else {
-            let result = await axios.get(`${this.$store.state.server}/${this.$store.state.auth}/me`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            localStorage.setItem('userId', result.data.userId);
-            switch (result.data.role) {
-                case '0':
-                    result.data.role = 'Admin';
-                    break;
-                case '1':
-                    result.data.role = 'Landlord';
-                    break;
-                case '2':
-                    result.data.role = 'User';
-                    break;
-                default:
-                    break;
-            }
-            this.userInfo = result.data;
-            delete this.userInfo.userId;
-        }
-    }
 }
 </script>
 

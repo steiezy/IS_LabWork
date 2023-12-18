@@ -3,13 +3,13 @@
 }
 
 .sidebar {
-    width: 30%; /* Adjust as needed */
+    width: 20%; /* Adjust as needed */
     height: 100vh; /* Full height */
     position: fixed; /* Fixed position */
     top: 0;
     bottom: 0;
     left: 0;
-    background-color: #f0f0f0; /* Adjust as needed */
+    background-color: #f0baba; /* Adjust as needed */
     
 }
 .sidebar h2{
@@ -21,22 +21,28 @@
     display: block;
     margin: 1em 0; /* Top and bottom margin */
     padding: 1em 0; /* Top and bottom padding */
-    border-top: 1px solid #063db3;
-    border-bottom: 1px solid #063db3;
-    background-color: #063db3;
+    border-top: 1px solid #98b3ee;
+    border-bottom: 1px solid #92ade9;
+    background-color: #d7e2fc;
 }
 
 .user-info {
-    width: 50%; /* Adjust as needed */
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 1000px; /* Adjust as needed */
     padding: 1em;
     margin-left: 35%;
 }
 
 .info-table {
-    width: 100%;
-    table-layout: auto;
+    
+    width: 70%;
     border-collapse: collapse;
     margin-top: 7em;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 .info-table th, .info-table td {
@@ -50,13 +56,13 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #063db3;
-    color: white;
+    background-color: #8ea9e4;
+    color: rgb(209, 125, 125);
 }
 
 .info-table td {
     height: 50px; /* Adjust as needed */
-    border: 1px solid #ddd;
+    border: 1px solid #997c7c;
     padding: 8px;
 }
 
@@ -93,4 +99,14 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+.header {
+    background-color: #f0baba;
+    padding: 1em;
+    text-align: center;
+    font-size: 1.5em;
+    color: #8ea9e4;
+}
+.common-layout{
+    height: 100vh;
 }
