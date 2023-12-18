@@ -8,6 +8,7 @@ import com.lab.airbnb.model.User;
 import com.lab.airbnb.model.dao.HouseDAO;
 import com.lab.airbnb.service.HouseService;
 import com.lab.airbnb.service.JWTService;
+import com.lab.airbnb.service.PermissionService;
 import com.lab.airbnb.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,14 @@ public class UserController {
 
     private JWTService jwtService;
 
-    public UserController(HouseDAO houseDAO, HouseService houseService, UserService userService, JWTService jwtService) {
+    private PermissionService permissionService;
+
+    public UserController(HouseDAO houseDAO, HouseService houseService, UserService userService, JWTService jwtService, PermissionService permissionService) {
         this.houseDAO = houseDAO;
         this.houseService = houseService;
         this.userService = userService;
         this.jwtService = jwtService;
+        this.permissionService = permissionService;
     }
 
     @GetMapping("/{userId}/houses/")
@@ -113,8 +117,30 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    //upgrade
+    @PatchMapping("/{userId}/landlord")
+    public ResponseEntity<User> upgradeToLandlord(@AuthenticationPrincipal User user,
+                                                  @PathVariable("userId") String userId) {
+        if (permissionService.userHasPermission(user, userId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        User curUser = userService.findByUserId(userId);
+        if (curUser == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        curUser.setRole("1");
+        User ans=userService.save(curUser);
+        if (ans==null){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    //TODO: remain this temporarily
     private boolean userHasPermission(User user, String userId) {
         // ||user.getRoles().contains(Role.ADMIN)
         return user.getUserId().equals(userId);
     }
+
+
 }

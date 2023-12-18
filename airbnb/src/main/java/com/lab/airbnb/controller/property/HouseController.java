@@ -32,8 +32,8 @@ public class HouseController {
         String userId = user.getUserId();
         return houseService.findByUserId(userId);
     }
-
-    @PostMapping("/add")
+    //rewrite in user
+   /* @PostMapping("/add")
     public ResponseEntity addHouse(@AuthenticationPrincipal User user, @RequestBody HouseDTO houseDTO) {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -44,9 +44,10 @@ public class HouseController {
         }else {
             return ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 
-    @PostMapping("/update")
+    //rewrite in user
+    /*@PostMapping("/update")
     public ResponseEntity updateHouse(@AuthenticationPrincipal User user, @RequestBody HouseDTO houseDTO) {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -73,5 +74,5 @@ public class HouseController {
         }else {
             return ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 }
