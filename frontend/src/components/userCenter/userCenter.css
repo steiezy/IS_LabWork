@@ -30,18 +30,19 @@
     display: grid;
     justify-content: center;
     align-items: center;
-    width: 1000px; /* Adjust as needed */
+    width: 100%; /* Adjust as needed */
     padding: 1em;
-    margin-left: 35%;
+    
 }
 
 .info-table {
     
     width: 70%;
-    border-collapse: collapse;
-    margin-top: 7em;
     align-items: center;
     justify-content: center;
+    border-collapse: collapse;
+   
+
     
 }
 
@@ -101,7 +102,7 @@
     cursor: pointer;
 }
 .header {
-    background-color: #f0baba;
+    background-color: hwb(132 36% 41%);
     padding: 1em;
     text-align: center;
     font-size: 1.5em;
@@ -110,3 +111,14 @@
 .common-layout{
     height: 100vh;
 }
+.resetForm{
+    margin: 100px;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+}
+.el-menu-item:hover {
+    background-color: #aaa46e !important; /* 替换为你想要的颜色 */
+  }

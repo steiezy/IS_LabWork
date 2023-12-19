@@ -1,12 +1,11 @@
 <template lang="">
     <div>
-        <el-aside width="200px">
-
-            <el-menu
+     
+        <el-menu
                 style="width:100%; height:100vh"
-                active-text-color="#ffd04b"
+                active-text-color="hwb(133 41% 38%)"
                 default-active="user-info"
-                background-color="#545c64"
+                background-color="hwb(135 56% 26%)"
                 class="el-menu-vertical-demo"
             
                 text-color="#fff"
@@ -20,7 +19,7 @@
                 </el-menu-item>
                 <el-menu-item index="add-house">
                 <el-icon><icon-menu /></el-icon>
-                <span>add your first house</span>
+                <span>add a house ad</span>
                 </el-menu-item>
                 <el-menu-item index="reset-password">
                 <el-icon><icon-menu /></el-icon>
@@ -32,12 +31,12 @@
                 </el-menu-item>
             
             </el-menu>
-       
-        </el-aside>
     </div>
    
 </template>
+
 <script>
+import "./userCenter.css";
 export default {
     
 }

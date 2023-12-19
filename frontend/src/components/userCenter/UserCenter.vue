@@ -9,8 +9,11 @@
       
        
       <el-container style="display: flex; height: 100vh;">
-        <userBar></userBar>
-        <router-view></router-view>
+        <el-aside width="250px"> 
+          <userBar></userBar>
+        </el-aside>
+        <div style="width: 100%;"><router-view></router-view></div>
+
    
       </el-container>
     </el-container>

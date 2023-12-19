@@ -1,24 +1,49 @@
 <template lang="">
     <div>
-        <el-main class="user-info"><h1>User Center</h1>
-            <table class="info-table">
-                <tr>
-                    <th>Username</th>
-                    <td>{{ userInfo.username }}</td>
-                </tr>
-                <tr>
-                    <th>Phone Number</th>
-                    <td>{{ userInfo.phoneNum }}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ userInfo.email }}</td>
-                </tr>
-                <tr>
-                    <th>Role</th>
-                    <td>{{ userInfo.role }}</td>
-                </tr>
-            </table>
+        <el-main class="user-info">
+           
+            <el-descriptions title="User Infomation" :column="1" class="info-table" border>
+                <el-descriptions-item
+                label="Username"
+                label-align="left"
+                align="center"
+                label-class-name="my-label"
+                class-name="my-content"
+                width="250px"
+                >{{userInfo.username}}</el-descriptions-item
+                >
+                <el-descriptions-item
+                label="Phone Number"
+                label-align="left"
+                align="center"
+                label-class-name="my-label"
+                class-name="my-content"
+                width="250px"
+                >{{userInfo.phoneNum}}</el-descriptions-item
+                >
+                <el-descriptions-item
+                label="Email"
+                label-align="left"
+                align="center"
+                label-class-name="my-label"
+                class-name="my-content"
+                width="250px"
+                >{{userInfo.email}}</el-descriptions-item
+                >
+                <el-descriptions-item
+                label="Role"
+                label-align="left"
+                align="center"
+                label-class-name="my-label"
+                class-name="my-content"
+                width="250px"
+                >{{userInfo.role}}</el-descriptions-item
+                >
+
+            </el-descriptions>  
+
+           
+
         </el-main>
     </div>
 </template>
@@ -28,10 +53,11 @@ import "./userCenter.css";
 export default {
     data(){
         return {
-            userInfo: {
-                    username: '',
-                    email: '',
-            }
+            // userInfo: {
+            //         username: '',
+            //         email: '',
+            // },
+            userInfo:[]
         }
 
     },

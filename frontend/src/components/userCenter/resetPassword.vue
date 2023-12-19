@@ -1,19 +1,26 @@
 <template>
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close" @click="$emit('close')">&times;</span>
-            <p>Reset Password</p>
-            <form @submit.prevent="submit">
-                <input type="password" v-model="password" placeholder="New Password" required>
-                <input type="password" v-model="confirmPassword" placeholder="Confirm New Password" required>
-                <button type="submit">Submit</button>
-            </form>
+    <div>
+        <form class="resetForm">
+        <div >
+            <label for="password">Password:</label>
+            <input id="password" v-model="password" type="password" required>
         </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input id="confirmPassword" v-model="confirmPassword" type="password" required>
+        </div>
+        <div>
+            <button type="submit" @click="submit()">Submit</button>
+            
+        </div>
+    </form>
     </div>
 </template>
 
 <script>
+
 import axios from 'axios';
+import "./userCenter.css"
 export default {
     name: 'ResetPassword',
     data() {
@@ -52,6 +59,7 @@ export default {
                 alert('Failed to update password: ' + this.errors);
             });
         },
+
     },
 }
 </script>
