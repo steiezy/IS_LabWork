@@ -66,7 +66,7 @@ export default {
 
     },
     async mounted() {
-        if (localStorage.getItem('token')) {
+        if (!localStorage.getItem('token')) {
             this.$router.push('/sign');
         } else {
             let result = await axios.get(`${this.$store.state.server}/${this.$store.state.auth}/me`, {

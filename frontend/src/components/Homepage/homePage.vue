@@ -6,7 +6,7 @@
         <div style="display: flex">
           <img class="logo" src="../../assets/logo.png">
           <div class="city-selector">
-            当前城市: New York
+            <span>当前城市: {{ selectedCity }}</span>
             <select v-model="selectedCity"
               @change="changeCity">
               <option v-for="city in cities" :key="city">{{ city }}</option>
@@ -14,8 +14,11 @@
 
           </div>
         </div>
+        <div style="display: flex;align-items: center;justify-content: center;">
+          <div class="user-center">用户中心</div>
+          <el-icon class="user-icon" @click="toUserCenter()"><User /></el-icon>
+        </div>
 
-        <div class="user-center">用户中心</div>
 
       </el-header>
 
@@ -86,6 +89,10 @@ export default {
     };
   },
   methods: {
+    toUserCenter(){
+      this.$router.push('/user-info')
+    },
+    
     async getOrder() {
       const pageNum = this.pageNum-1;
       const pageSize = this.pageSize;

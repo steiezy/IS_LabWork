@@ -4,7 +4,7 @@
     <el-container>
       <el-header class="header">
         <img class="logo" src="../../assets/logo.png">
-        <el-icon><House /></el-icon>
+        <el-icon class="house-icon" @click = "toHome()"><House /></el-icon>
       </el-header>
       
        
@@ -44,6 +44,9 @@ export default {
     },
 
     methods: {
+        toHome() {
+            this.$router.push('/listpage');
+        },
         async addHouse() {
 
         },
